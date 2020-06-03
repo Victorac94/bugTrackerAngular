@@ -9,19 +9,28 @@ import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatTableModule } from '@angular/material/table';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { UserComponent } from './user/user.component';
+import { TableComponent } from './table/table.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    SidenavComponent
+    SidenavComponent,
+    UserComponent,
+    TableComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +44,10 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     MatListModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule,
+    MatTabsModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

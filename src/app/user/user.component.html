@@ -1,0 +1,30 @@
+<div class="user-container" *ngIf="userData">
+    <section class="user-main">
+        <div class="img-container">
+            <img [src]="userData.picture" alt="userData.name image" />
+        </div>
+        <div class="user-main-info">
+            <h3>{{userData.name}}</h3>
+            <p>{{userData.email}}</p>
+        </div>
+    </section>
+    <mat-tab-group>
+        <mat-tab label="Issues">
+            <mat-card *ngFor="let issue of userData.issues">
+                <mat-card-title>{{issue.summary}}</mat-card-title>
+                <mat-card-content>Priority: {{issue.priority}}</mat-card-content>
+                <mat-card-content>Severity: {{issue.severity}}</mat-card-content>
+                <mat-card-content>Last update: {{issue.modification_date || issue.creation_date | date : 'short'}}
+                </mat-card-content>
+            </mat-card>
+        </mat-tab>
+        <mat-tab label="Comments">
+            <mat-card *ngFor="let comment of userData.comments">
+                <mat-card-title>{{comment.text}}</mat-card-title>
+                <mat-card-content>Issue id: {{comment.id}}</mat-card-content>
+                <mat-card-content>{{comment.modification_date || comment.creation_date | date : 'short'}}
+                </mat-card-content>
+            </mat-card>
+        </mat-tab>
+    </mat-tab-group>
+</div>

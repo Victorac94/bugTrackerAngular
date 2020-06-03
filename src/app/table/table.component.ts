@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-table',
@@ -7,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TableComponent implements OnInit {
 
-  constructor() { }
+  @Input() tableType: string;
+  @Input() data: any;
+  columnsToDisplay: any;
+
+  constructor() {
+    this.columnsToDisplay = ['id', 'state', 'severity', 'creation_date', 'summary'];
+  }
 
   ngOnInit(): void {
   }

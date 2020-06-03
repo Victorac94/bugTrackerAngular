@@ -1,1 +1,4 @@
-<p>home works!</p>
+<div class="home-container">
+    <app-table [tableType]="'latest'" [data]="latestIssues"></app-table>
+    <app-table [tableType]="'closed'" [data]="closedIssues"></app-table>
+</div>

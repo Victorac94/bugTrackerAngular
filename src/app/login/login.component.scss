@@ -1,0 +1,25 @@
+.login-container {
+    width: 100%;
+    height: 100%;
+    padding: 1em;
+    box-sizing: border-box;
+
+    h2 {
+        text-align: center;
+        margin-top: 2em;
+    }
+
+    .login-form {
+        margin: 0 auto;
+        padding: 1em;
+
+        mat-form-field {
+            display: block;
+            margin: 2em 0;
+        }
+
+        mat-hint {
+            color: red;
+        }
+    }
+}

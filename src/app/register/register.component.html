@@ -1,1 +1,59 @@
-<p>register works!</p>
+<div class="register-container">
+    <h2>Register</h2>
+
+    <form class="register-form" [formGroup]="register" (ngSubmit)="handleSubmitRegister()">
+        <mat-form-field appearance="legacy">
+            <mat-label>Name*</mat-label>
+            <input matInput placeholder="Name" formControlName="name">
+            <mat-error *ngIf="register.controls.name.errors?.required && register.controls.name.touched">Name is
+                required</mat-error>
+            <mat-error *ngIf="register.controls.name.errors?.pattern && register.controls.name.dirty">
+                Name must be between 3 and 30 characters and must only contain alphanumeric, underscore or blank space
+                values.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="legacy">
+            <mat-label>Email*</mat-label>
+            <input matInput placeholder="Email" formControlName="email">
+            <mat-error *ngIf="register.controls.email.errors?.required && register.controls.email.touched">Email is
+                required.
+            </mat-error>
+            <mat-error *ngIf="register.controls.email.errors?.pattern && register.controls.email.dirty">Invalid email
+                format.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="legacy">
+            <mat-label>Avatar</mat-label>
+            <input matInput placeholder="Image url" formControlName="picture">
+            <mat-error *ngIf="register.controls.picture.errors?.pattern && register.controls.picture.dirty">Image URL is
+                not
+                valid
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="legacy">
+            <mat-label>Password*</mat-label>
+            <input type="password" matInput placeholder="Password" formControlName="password">
+            <mat-error *ngIf="register.controls.password.errors?.required && register.controls.password.touched">
+                Password is
+                required
+            </mat-error>
+            <mat-error *ngIf="register.controls.password.errors?.pattern && register.controls.password.dirty">Password
+                must be
+                between 6
+                and 20 characters and can only contain the following characters a-zA-Z0-9@*#
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="legacy">
+            <mat-label>Repeat password*</mat-label>
+            <input type="password" matInput placeholder="Repeat password" formControlName="repeatPassword">
+            <mat-error
+                *ngIf="register.controls.repeatPassword.errors?.required && register.controls.repeatPassword.touched">
+                Repeat password is required
+            </mat-error>
+            <mat-error *ngIf="register.errors?.passwordsDoNotMatch && register.controls.repeatPassword.dirty">Passwords
+                do not match
+            </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" [disabled]="register.invalid">Register</button>
+    </form>
+</div>

@@ -1,4 +1,4 @@
 <div class="home-container">
-    <app-table [tableType]="'latest'" [data]="latestIssues"></app-table>
-    <app-table [tableType]="'closed'" [data]="closedIssues"></app-table>
+    <app-table [tableType]="'latest'" [data]="latestIssues" *ngIf="latestIssues"></app-table>
+    <app-table [tableType]="'closed'" [data]="closedIssues" *ngIf="closedIssues"></app-table>
 </div>

@@ -2,8 +2,12 @@
     BugTracker
 </mat-toolbar>
 <mat-nav-list>
-    <a mat-list-item [routerLink]="['/']" routerLinkActive="router-link-active">
+    <a mat-list-item [routerLink]="['/']" routerLinkActive="router-link-active"
+        [routerLinkActiveOptions]="{ exact: true }">
         Home
+    </a>
+    <a mat-list-item [routerLink]="['/issues']" routerLinkActive="router-link-active">
+        Issues
     </a>
     <a mat-list-item [routerLink]="['/login']" routerLinkActive="router-link-active">
         Login

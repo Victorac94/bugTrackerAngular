@@ -12,6 +12,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +23,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { UserComponent } from './user/user.component';
 import { TableComponent } from './table/table.component';
 import { HomeComponent } from './home/home.component';
+import { IssuesComponent } from './issues/issues.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,8 @@ import { HomeComponent } from './home/home.component';
     SidenavComponent,
     UserComponent,
     TableComponent,
-    HomeComponent
+    HomeComponent,
+    IssuesComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +51,9 @@ import { HomeComponent } from './home/home.component';
     MatButtonModule,
     MatCardModule,
     MatTabsModule,
-    MatTableModule
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

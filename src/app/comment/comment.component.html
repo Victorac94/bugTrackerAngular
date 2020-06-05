@@ -1,0 +1,11 @@
+<article class="comment">
+    <aside>
+        <div class="user-pic-container">
+            <img [src]="comment.author.picture" [alt]="comment.author.name + '\'s picture'" />
+        </div>
+        <h3 [routerLink]="['/user', comment.author._id]">{{comment.author.name}}</h3>
+    </aside>
+    <main>
+        {{comment.text}}
+    </main>
+</article>

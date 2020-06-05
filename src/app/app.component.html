@@ -1,8 +1,10 @@
 <mat-sidenav-container class="container">
+  <!-- Sidenav -->
   <mat-sidenav class="sidenav" [mode]="desktop ? 'side' : 'push'" [opened]="desktop ? true : false"
     [position]="desktop ? 'start' : 'end'">
     <app-sidenav></app-sidenav>
   </mat-sidenav>
+  <!-- Main content -->
   <mat-sidenav-content class="main-content">
     <router-outlet></router-outlet>
   </mat-sidenav-content>

@@ -22,10 +22,6 @@
                 <span>Project: </span>
                 {{issue.project.name}}
             </p>
-            <p>
-                <span>Product version: </span>
-                {{issue.product_version}}
-            </p>
         </div>
         <div class="right-column">
             <p>
@@ -38,15 +34,19 @@
             </p>
             <p>
                 <span>Creation date: </span>
-                {{issue.creation_date | date:'d/MMM/yy hh:mm'}}
+                {{issue.creation_date * 1000 | date:'d/MMM/yy H:mm'}}h
             </p>
-            <p>
+            <p *ngIg="issue.modification_date">
                 <span>Modification date: </span>
-                {{issue.modification_date}}
+                {{issue.modification_date * 1000 | date:'d/MMM/yy H:mm' : ''}}h
             </p>
             <p>
                 <span>OS: </span>
                 {{issue.os}}
+            </p>
+            <p>
+                <span>Product version: </span>
+                {{issue.product_version}}
             </p>
         </div>
         <p class="tags"><span>Tags: </span>{{issue.tags}}</p>
@@ -66,5 +66,9 @@
             {{issue.steps_to_reproduce}}
         </p>
     </main>
-    <!-- Comments -->
 </div>
+<!-- Comments -->
+<section class="comments" *ngIf="issue">
+    <header>Comments</header>
+    <app-comment *ngFor="let comment of issue.comments" [comment]="comment"></app-comment>
+</section>

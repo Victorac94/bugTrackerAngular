@@ -26,6 +26,7 @@ import { TableComponent } from './table/table.component';
 import { HomeComponent } from './home/home.component';
 import { IssuesComponent } from './issues/issues.component';
 import { IssueDetailsComponent } from './issue-details/issue-details.component';
+import { CommentComponent } from './comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { IssueDetailsComponent } from './issue-details/issue-details.component';
     TableComponent,
     HomeComponent,
     IssuesComponent,
-    IssueDetailsComponent
+    IssueDetailsComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,

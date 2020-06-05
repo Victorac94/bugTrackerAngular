@@ -1,0 +1,46 @@
+.issue-container{
+    padding: 1em;
+    box-sizing: border-box;
+    
+    > header {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 1em;
+        font-size: 1.2em;
+        background-color: #3F51B5;
+        color: white;
+    }
+    
+    .basic-info {
+        background-color: white;
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-areas: 'leftColumn rightColumn' 'tags tags';
+        padding: 1em;
+
+        p span {
+            font-weight: 500;
+        }
+        
+        .left-column {
+            grid-area: leftColumn;
+        }
+        
+        .right-column {
+            grid-area: rightColumn;
+        }
+        
+        .tags {
+            grid-area: tags;
+        }
+    }
+    
+    .main-info {
+        padding: 1em;
+        background-color: white;
+        
+        p span {
+            font-weight: 500;
+        }
+    }
+}

@@ -28,9 +28,13 @@ table {
     }
 }
 
-.only-table {
+.single-table {
     margin-bottom: 0;
 }
+
+// .mat-paginator {
+//     margin-bottom: 2em;
+// }
 
 @media (min-width: 640px) {
     table {

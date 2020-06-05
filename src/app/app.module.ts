@@ -14,6 +14,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +25,7 @@ import { UserComponent } from './user/user.component';
 import { TableComponent } from './table/table.component';
 import { HomeComponent } from './home/home.component';
 import { IssuesComponent } from './issues/issues.component';
+import { IssueDetailsComponent } from './issue-details/issue-details.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { IssuesComponent } from './issues/issues.component';
     UserComponent,
     TableComponent,
     HomeComponent,
-    IssuesComponent
+    IssuesComponent,
+    IssueDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,8 @@ import { IssuesComponent } from './issues/issues.component';
     MatTabsModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

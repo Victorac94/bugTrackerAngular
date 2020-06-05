@@ -22,4 +22,13 @@ export class IssueService {
       throw err;
     }
   }
+
+  async getIssue(issueId): Promise<any> {
+    try {
+      return await this.httpClient.get(`${this.url}/${issueId}`).toPromise();
+
+    } catch (err) {
+      throw err;
+    }
+  }
 }

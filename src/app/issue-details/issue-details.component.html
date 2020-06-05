@@ -1,0 +1,70 @@
+<div class="issue-container" *ngIf="issue">
+    <header>Issue details</header>
+    <div class="basic-info">
+        <div class="left-column">
+            <p>
+                <span>Issue ID: </span>
+                {{issue.id}}
+            </p>
+            <p>
+                <span>State: </span>
+                {{issue.state}}
+            </p>
+            <p>
+                <span>Severity: </span>
+                {{issue.severity}}
+            </p>
+            <p>
+                <span>Priority: </span>
+                {{issue.priority}}
+            </p>
+            <p>
+                <span>Project: </span>
+                {{issue.project.name}}
+            </p>
+            <p>
+                <span>Product version: </span>
+                {{issue.product_version}}
+            </p>
+        </div>
+        <div class="right-column">
+            <p>
+                <span>Informer: </span>
+                {{issue.informer.name}}
+            </p>
+            <p>
+                <span>Category: </span>
+                {{issue.category}}
+            </p>
+            <p>
+                <span>Creation date: </span>
+                {{issue.creation_date | date:'d/MMM/yy hh:mm'}}
+            </p>
+            <p>
+                <span>Modification date: </span>
+                {{issue.modification_date}}
+            </p>
+            <p>
+                <span>OS: </span>
+                {{issue.os}}
+            </p>
+        </div>
+        <p class="tags"><span>Tags: </span>{{issue.tags}}</p>
+    </div>
+    <mat-divider></mat-divider>
+    <main class="main-info">
+        <p>
+            <span>Summary: </span>
+            {{issue.summary}}
+        </p>
+        <p>
+            <span>Description: </span>
+            {{issue.description}}
+        </p>
+        <p *ngIf="issue.steps_to_reproduce">
+            <span>Steps to reproduce: </span>
+            {{issue.steps_to_reproduce}}
+        </p>
+    </main>
+    <!-- Comments -->
+</div>

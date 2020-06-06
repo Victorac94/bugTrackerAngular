@@ -36,7 +36,7 @@
                 <span>Creation date: </span>
                 {{issue.creation_date * 1000 | date:'d/MMM/yy H:mm'}}h
             </p>
-            <p *ngIg="issue.modification_date">
+            <p *ngIf="issue.modification_date">
                 <span>Modification date: </span>
                 {{issue.modification_date * 1000 | date:'d/MMM/yy H:mm' : ''}}h
             </p>
@@ -71,4 +71,10 @@
 <section class="comments" *ngIf="issue">
     <header>Comments</header>
     <app-comment *ngFor="let comment of issue.comments" [comment]="comment"></app-comment>
+    <header>New comment</header>
+    <form [formGroup]="newCommentForm" (ngSubmit)="handleNewComment()">
+        <quill-editor formControlName="textarea" id="editor"></quill-editor>
+        <button mat-raised-button color="primary" class="send-comment"
+            [disabled]="newCommentForm.invalid">{{sendingComment ? 'Sending...' : 'Send comment'}}</button>
+    </form>
 </section>

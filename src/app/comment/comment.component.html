@@ -6,6 +6,9 @@
         <h3 [routerLink]="['/user', comment.author._id]">{{comment.author.name}}</h3>
     </aside>
     <main>
-        {{comment.text}}
+        <quill-view [content]="comment.text" format="text" theme="snow"></quill-view>
+        <p class="creation_date">Posted on {{comment.creation_date * 1000 | date:'d/MMM/yy hh:mm:ss'}}h</p>
+        <p class="modification_date" *ngIf="comment.modification_date">Modified on
+            {{comment.modification_date * 1000 | date:'d/MMM/yy hh:mm:ss'}}h</p>
     </main>
 </article>

@@ -39,6 +39,8 @@ export class LoginComponent implements OnInit {
     try {
       const response = await this.loginService.sendLoginForm(this.login.value);
 
+      localStorage.setItem('user-token', response['user-token']);
+
       console.log(response);
       this.router.navigate(['/']);
 

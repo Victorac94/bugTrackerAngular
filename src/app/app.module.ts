@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { QuillModule } from 'ngx-quill';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
@@ -48,6 +49,19 @@ import { CommentComponent } from './comment/comment.component';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    QuillModule.forRoot({
+      modules: {
+        syntax: false,
+        toolbar: [
+          [{ header: [1, 2, false] }],
+          ['bold', 'italic', 'underline'],
+          ['image', 'code-block']
+        ]
+      },
+      placeholder: 'Write your comment...',
+      theme: 'snow',
+      format: 'html',
+    }),
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,

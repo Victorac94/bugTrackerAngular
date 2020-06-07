@@ -51,7 +51,7 @@ import { CommentComponent } from './comment/comment.component';
     BrowserAnimationsModule,
     QuillModule.forRoot({
       modules: {
-        syntax: false,
+        syntax: true,
         toolbar: [
           [{ header: [1, 2, false] }],
           ['bold', 'italic', 'underline', 'strike'],

@@ -54,8 +54,9 @@ import { CommentComponent } from './comment/comment.component';
         syntax: false,
         toolbar: [
           [{ header: [1, 2, false] }],
-          ['bold', 'italic', 'underline'],
-          ['image', 'code-block']
+          ['bold', 'italic', 'underline', 'strike'],
+          [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+          ['link', 'code-block']
         ]
       },
       placeholder: 'Write your comment...',

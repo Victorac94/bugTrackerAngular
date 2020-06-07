@@ -60,6 +60,7 @@ export class RegisterComponent implements OnInit {
       const response = await this.registerService.sendRegisterForm(this.register.value);
 
       localStorage.setItem('user-token', response['user-token']);
+      localStorage.setItem('user-info', JSON.stringify(response['user-info']));
 
       // Redirect to main page
       this.router.navigate(['/']);

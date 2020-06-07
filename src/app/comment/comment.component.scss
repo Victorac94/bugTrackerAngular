@@ -1,6 +1,7 @@
 .comment {
     width: 100%;
     display: grid;
+    position: relative;
     grid-template-columns: 20% 80%;
     background-color: white;
     margin-bottom: 1em;
@@ -41,5 +42,21 @@
 
     .creation_date {
         margin: 0 1em;
+    }
+
+    .comment-options {
+        display: none;
+    }
+
+    &:hover .comment-options {
+        display: block;
+        position: absolute;
+        bottom: 1em;
+        right: 1em;
+
+        button {
+            font-size: 0.9em;
+            margin-right: 1em;
+        }
     }
 }

@@ -70,11 +70,13 @@
 <!-- Comments -->
 <section class="comments" *ngIf="issue">
     <header>Comments</header>
-    <app-comment *ngFor="let comment of issue.comments" [comment]="comment"></app-comment>
+    <app-comment *ngFor="let comment of issue.comments" [comment]="comment" [myUserInfo]="myUserInfo"
+        (commentContent)="handleCommentContent($event)"></app-comment>
     <header>New comment</header>
     <form [formGroup]="newCommentForm" (ngSubmit)="handleNewComment()">
-        <quill-editor formControlName="textarea" id="editor"></quill-editor>
+        <quill-editor (onEditorCreated)="getEditorInstance($event)" theme="snow" formControlName="textarea">
+        </quill-editor>
         <button mat-raised-button color="primary" class="send-comment"
-            [disabled]="newCommentForm.invalid">{{sendingComment ? 'Sending...' : 'Send comment'}}</button>
+            [disabled]="!isValidComment">{{sendingComment ? 'Sending...' : 'Send comment'}}</button>
     </form>
 </section>

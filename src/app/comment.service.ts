@@ -23,6 +23,16 @@ export class CommentService {
     }
   }
 
+  async deleteComment(comment) {
+    try {
+      const deleteURL = `${this.url}/${comment._id}/delete`;
+      return await this.httpClient.delete(deleteURL, this.createHeaders()).toPromise();
+
+    } catch (err) {
+      throw err;
+    }
+  }
+
   createHeaders() {
     return {
       headers: new HttpHeaders({

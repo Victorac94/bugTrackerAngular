@@ -1,4 +1,4 @@
-<article class="comment">
+<article class="comment" #commentElem>
     <aside>
         <div class="user-pic-container">
             <img [src]="comment.author.picture" [alt]="comment.author.name + '\'s picture'" />
@@ -11,4 +11,8 @@
         <p class="modification_date" *ngIf="comment.modification_date">Modified on
             {{comment.modification_date * 1000 | date:'d/MMM/yy hh:mm:ss'}}h</p>
     </main>
+    <div class="comment-options" *ngIf="myUserInfo?.id === comment.author._id">
+        <button mat-raised-button color="accent" (click)="handleEditComment($event)">Edit</button>
+        <button mat-raised-button color="warn" (click)="handleDeleteComment()">Delete</button>
+    </div>
 </article>

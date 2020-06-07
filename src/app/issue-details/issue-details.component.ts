@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { IssueService } from '../issue.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CommentService } from '../comment.service';
-import Quill from 'quill';
 
 @Component({
   selector: 'app-issue-details',
@@ -13,8 +12,11 @@ import Quill from 'quill';
 export class IssueDetailsComponent implements OnInit {
 
   issue: any;
-  sendingComment: boolean;
+  quill: any;
   newCommentForm: FormGroup;
+  sendingComment: boolean;
+  isValidComment: boolean;
+  myUserInfo: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -23,6 +25,8 @@ export class IssueDetailsComponent implements OnInit {
   ) {
     this.issue = null;
     this.sendingComment = false;
+    this.myUserInfo = null;
+    this.isValidComment = false;
     this.newCommentForm = new FormGroup({
       textarea: new FormControl('', [
         Validators.minLength(1),
@@ -35,6 +39,8 @@ export class IssueDetailsComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.issueDetails(params.issueId);
     });
+
+    this.myUserInfo = JSON.parse(localStorage.getItem('user-info'));
   }
 
   async issueDetails(issueId): Promise<any> {
@@ -47,6 +53,25 @@ export class IssueDetailsComponent implements OnInit {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  // Get quill instance when loading this page
+  getEditorInstance($event) {
+    this.quill = $event;
+
+    // Enable / disable sending a new comment
+    this.quill.on('text-change', () => {
+      // By default quill-editor always ends with \n (newline)
+      // even if the user has not written anything
+
+      // If user has written content
+      if (this.quill.getText() !== '\n') {
+        this.isValidComment = true;
+
+      } else {
+        this.isValidComment = false;
+      }
+    })
   }
 
   async handleNewComment() {
@@ -62,13 +87,24 @@ export class IssueDetailsComponent implements OnInit {
 
       this.sendingComment = false;
 
-      console.log(response['comment']);
-
+      // Clear text editor and push new comment to this issue's comment list (visually)
+      this.quill.setContents([]);
       this.issue.comments.push(response['comment'])
+      this.isValidComment = false;
 
     } catch (err) {
       console.log(err);
       this.sendingComment = false;
     }
+  }
+
+  handleCommentContent($event) {
+    this.quill.focus();
+    // Clear quill-editor contents
+    this.quill.setContents([]);
+    // Fill quill-editor with the selected comment's value
+    this.quill.clipboard.dangerouslyPasteHTML(0, $event);
+    // Disable sending the comment until it has been modified
+    this.isValidComment = false;
   }
 }

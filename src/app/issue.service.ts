@@ -40,6 +40,14 @@ export class IssueService {
     }
   }
 
+  async editIssue(value, issueId): Promise<any> {
+    try {
+      return await this.httpClient.put(`${this.url}/${issueId}/edit`, value, this.createHeaders()).toPromise();
+    } catch (err) {
+      throw err;
+    }
+  }
+
   async deleteIssue(issueId): Promise<any> {
     try {
       return await this.httpClient.delete(`${this.url}/${issueId}/delete`, this.createHeaders()).toPromise();

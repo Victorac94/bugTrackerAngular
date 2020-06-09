@@ -1,6 +1,6 @@
 <div class="issue-container">
     <h2>{{isEditMode ? 'Edit issue #' + issueCustomId : 'New issue'}}</h2>
-    <form [formGroup]="issueForm" (ngSubmit)="handleSubmitNewIssue()">
+    <form [formGroup]="issueForm" (ngSubmit)="handleSubmitIssue(isEditMode)">
         <!-- Summary -->
         <mat-form-field appearance="standard" class="summary">
             <mat-label>Summary</mat-label>

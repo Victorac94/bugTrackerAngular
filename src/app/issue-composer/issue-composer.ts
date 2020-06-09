@@ -13,6 +13,7 @@ export class IssueComposerComponent implements OnInit {
   issueForm: FormGroup;
   isEditMode: boolean;
   issueCustomId: number;
+  issueId: string;
 
   constructor(
     private issueService: IssueService,
@@ -20,6 +21,7 @@ export class IssueComposerComponent implements OnInit {
   ) {
     this.isEditMode = false;
     this.issueCustomId = 0;
+    this.issueId = '';
     this.issueForm = new FormGroup({
       summary: new FormControl('', [
         Validators.required,
@@ -81,6 +83,7 @@ export class IssueComposerComponent implements OnInit {
     }
   }
 
+  // Only called when editing an existing issue
   async getIssueDetails(issueId) {
     try {
       const response = await this.issueService.getIssue(issueId);
@@ -99,19 +102,29 @@ export class IssueComposerComponent implements OnInit {
       })
 
       this.issueCustomId = response.issue.id;
+      this.issueId = response.issue._id;
 
     } catch (err) {
       console.log(err);
     }
   }
 
-  async handleSubmitNewIssue() {
+  async handleSubmitIssue(isEditMode) {
     try {
-      console.log(this.issueForm.value);
-      const response = await this.issueService.newIssue(this.issueForm.value);
+      let response;
+
+      // If we are editing an issue
+      if (isEditMode) {
+        response = await this.issueService.editIssue(this.issueForm.value, this.issueId);
+        this.router.navigate(['../']);
+
+        // If we are creating a new issue
+      } else {
+        response = await this.issueService.newIssue(this.issueForm.value);
+        this.router.navigate(['/issues']);
+      }
 
       console.log(response);
-      this.router.navigate(['/issues']);
 
     } catch (err) {
       console.log(err);

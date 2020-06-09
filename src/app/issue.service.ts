@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +29,30 @@ export class IssueService {
 
     } catch (err) {
       throw err;
+    }
+  }
+
+  async newIssue(value): Promise<any> {
+    try {
+      return await this.httpClient.post(`${this.url}/new`, value, this.createHeaders()).toPromise();
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async deleteIssue(issueId): Promise<any> {
+    try {
+      return await this.httpClient.delete(`${this.url}/${issueId}/delete`, this.createHeaders()).toPromise();
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  createHeaders() {
+    return {
+      headers: new HttpHeaders({
+        'user-token': localStorage.getItem('user-token')
+      })
     }
   }
 }

@@ -1,0 +1,142 @@
+<div class="issue-container">
+    <h2>{{isEditMode ? 'Edit issue #' + issueCustomId : 'New issue'}}</h2>
+    <form [formGroup]="issueForm" (ngSubmit)="handleSubmitNewIssue()">
+        <!-- Summary -->
+        <mat-form-field appearance="standard" class="summary">
+            <mat-label>Summary</mat-label>
+            <input matInput placeholder="Title of the issue" formControlName="summary" required>
+            <mat-hint>max 200 characters</mat-hint>
+            <mat-error *ngIf="issueForm.controls.summary.errors?.required && issueForm.controls.summary.touched">
+                Summary is
+                required.</mat-error>
+            <mat-error
+                *ngIf="(issueForm.controls.summary.errors?.minLength || issueForm.controls.summary.errors?.maxLength) && issueForm.controls.summary.dirty">
+                Summary must be between 1 and 200 characters.
+            </mat-error>
+        </mat-form-field>
+        <div class="first-half">
+            <!-- Project name -->
+            <mat-form-field appearance="standard">
+                <mat-label>Project name</mat-label>
+                <mat-select formControlName="project" required>
+                    <mat-option value="5ed4eab42d31ac1c74c08b86">Main project</mat-option>
+                </mat-select>
+                <mat-error *ngIf="issueForm.controls.project.errors?.required && issueForm.controls.project.touched">
+                    Project is
+                    required.</mat-error>
+                <mat-error
+                    *ngIf="(issueForm.controls.project.errors?.minLength || issueForm.controls.project.errors?.maxLength) && issueForm.controls.project.dirty">
+                    You must choose one project from the dropdown list.
+                </mat-error>
+            </mat-form-field>
+            <!-- Priority -->
+            <mat-form-field appearance="standard">
+                <mat-label>Priority</mat-label>
+                <mat-select formControlName="priority" required>
+                    <mat-option value="low">Low</mat-option>
+                    <mat-option value="medium">Medium</mat-option>
+                    <mat-option value="high">High</mat-option>
+                </mat-select>
+                <mat-error *ngIf="issueForm.controls.priority.errors?.required && issueForm.controls.priority.touched">
+                    Priority is
+                    required.</mat-error>
+                <mat-error *ngIf="issueForm.controls.priority.errors?.pattern && issueForm.controls.priority.dirty">
+                    You must choose the priority from the dropdown list.
+                </mat-error>
+            </mat-form-field>
+            <!-- Severity -->
+            <mat-form-field appearance="standard">
+                <mat-label>Severity</mat-label>
+                <mat-select formControlName="severity" required>
+                    <mat-option value="low">Low</mat-option>
+                    <mat-option value="medium">Medium</mat-option>
+                    <mat-option value="high">High</mat-option>
+                </mat-select>
+                <mat-error *ngIf="issueForm.controls.severity.errors?.required && issueForm.controls.severity.touched">
+                    Severity is
+                    required.</mat-error>
+                <mat-error *ngIf="issueForm.controls.severity.errors?.pattern && issueForm.controls.severity.dirty">
+                    You must choose the severity from the dropdown list.
+                </mat-error>
+            </mat-form-field>
+            <!-- Category -->
+            <mat-form-field appearance="standard">
+                <mat-label>Category</mat-label>
+                <input matInput placeholder="security, administration, code cleanup..." formControlName="category"
+                    required>
+                <mat-error *ngIf="issueForm.controls.category.errors?.required && issueForm.controls.category.touched">
+                    Category is
+                    required.</mat-error>
+                <mat-error
+                    *ngIf="(issueForm.controls.category.errors?.minLength || issueForm.controls.category.errors?.maxLength) && issueForm.controls.category.dirty">
+                    Category must be between 1 and 50 characters.
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="second-half">
+            <!-- Product version -->
+            <mat-form-field appearance="standard">
+                <mat-label>Product version</mat-label>
+                <input matInput placeholder="2.3.4" formControlName="product_version" required>
+                <mat-error
+                    *ngIf="issueForm.controls.product_version.errors?.required && issueForm.controls.product_version.touched">
+                    Product version is required.</mat-error>
+                <mat-error
+                    *ngIf="(issueForm.controls.product_version.errors?.minLength || issueForm.controls.product_version.errors?.maxLength) && issueForm.controls.product_version.dirty">
+                    Product version must be between 1 and 50 characters.
+                </mat-error>
+            </mat-form-field>
+            <!-- OS -->
+            <mat-form-field appearance="standard">
+                <mat-label>OS</mat-label>
+                <input matInput placeholder="Windows 10 x64..." formControlName="os">
+                <mat-error
+                    *ngIf="(issueForm.controls.os.errors?.minLength || issueForm.controls.os.errors?.maxLength) && issueForm.controls.os.dirty">
+                    OS must be between 1 and 50 characters.
+                </mat-error>
+            </mat-form-field>
+            <!-- Tags -->
+            <mat-form-field appearance="standard">
+                <mat-label>Tags</mat-label>
+                <mat-select formControlName="tags" required>
+                    <mat-option value="feature">Feature</mat-option>
+                    <mat-option value="bug">Bug</mat-option>
+                </mat-select>
+                <mat-error *ngIf="issueForm.controls.tags.errors?.required && issueForm.controls.tags.touched">
+                    Tags is required.</mat-error>
+                <mat-error *ngIf="issueForm.controls.tags.errors?.pattern && issueForm.controls.tags.dirty">
+                    You must choose the tag from the dropdown list.
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="third-half">
+            <!-- Description -->
+            <div appearance="standard" class="description">
+                <label>Description *</label>
+                <quill-editor theme="snow" formControlName="description">
+                </quill-editor>
+                <mat-hint>max 30000 characters</mat-hint>
+                <mat-error
+                    *ngIf="issueForm.controls.description.errors?.required && issueForm.controls.description.touched">
+                    Description is required.</mat-error>
+                <mat-error
+                    *ngIf="(issueForm.controls.description.errors?.minlength || issueForm.controls.description.errors?.maxlength) && issueForm.controls.description.dirty">
+                    Description must be between 1 and 30000 characters.
+                </mat-error>
+            </div>
+            <!-- Steps to reproduce -->
+            <div appearance="standard" class="steps-to-reproduce">
+                <label>Steps to reproduce</label>
+                <quill-editor theme="snow" formControlName="steps_to_reproduce">
+                </quill-editor>
+                <mat-hint>max 30000 characters</mat-hint>
+                <mat-error
+                    *ngIf="(issueForm.controls.steps_to_reproduce.errors?.minLength || issueForm.controls.steps_to_reproduce.errors?.maxLength) && issueForm.controls.steps_to_reproduce.dirty">
+                    Steps to reproduce must be between 1 and 30000 characters.
+                </mat-error>
+            </div>
+        </div>
+        <button mat-raised-button color="primary"
+            [disabled]="issueForm.invalid">{{isEditMode ? 'Submit edit' : 'Create issue'}}</button>
+    </form>
+</div>

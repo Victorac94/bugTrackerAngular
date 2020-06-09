@@ -1,3 +1,7 @@
+.mat-spinner {
+    margin: 3em auto;
+}
+
 .issue-container {
     box-shadow: 1px 1px 2px #c5cacc;
     border-radius: 3px;
@@ -6,21 +10,40 @@
     > header {
         box-sizing: border-box;
         width: 100%;
-        padding: 1em;
+        padding: 0.5em 1em;
         font-size: 1.2em;
         background-color: #3f51b5;
         color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h3 {
+            margin: 0;
+        }
+
+        // a.mat-menu-item {
+        //     color: #ff4081;
+        // }
+
+        // button.mat-menu-item {
+        //     color: #f44336;
+        // }
     }
 
     .basic-info {
         background-color: white;
         display: grid;
         grid-template-columns: 50% 50%;
-        grid-template-areas: "leftColumn rightColumn" "tags tags";
+        grid-template-areas: "summary summary" "leftColumn rightColumn";
         padding: 1em;
 
         p span {
             font-weight: 500;
+        }
+
+        .summary {
+            grid-area: summary;
         }
 
         .left-column {
@@ -31,8 +54,14 @@
             grid-area: rightColumn;
         }
 
-        .tags {
-            grid-area: tags;
+        .action-buttons {
+            grid-area: actionButtons;
+            justify-self: flex-end;
+        }
+
+        .edit-issue,
+        .delete-issue {
+            width: min-content;
         }
     }
 
@@ -63,5 +92,9 @@
 
     .send-comment {
         margin-top: 1.5em;
+    }
+
+    .no-comments {
+        margin: 1em 0.5em;
     }
 }

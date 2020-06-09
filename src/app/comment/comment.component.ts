@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { CommentService } from '../comment.service';
 
 @Component({
@@ -12,10 +14,10 @@ export class CommentComponent implements OnInit {
   @Input() myUserInfo: any;
   @Output() commentContent: EventEmitter<any>;
   @ViewChild('commentElem') commentElem: ElementRef;
-  // @ViewChild('textEditor') textEditor: ElementRef;
 
   constructor(
-    private commentService: CommentService
+    private commentService: CommentService,
+    private _snackBar: MatSnackBar
   ) {
     this.commentContent = new EventEmitter();
   }
@@ -36,9 +38,18 @@ export class CommentComponent implements OnInit {
 
       this.commentElem.nativeElement.parentNode.remove();
 
+      // Show snackbar with successful delete message
+      this.openSnackBar('Message deleted successfully', 'Dismiss');
+
     } catch (err) {
       console.log(err);
     }
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000
+    })
   }
 
 }

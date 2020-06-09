@@ -9,13 +9,18 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,6 +33,7 @@ import { HomeComponent } from './home/home.component';
 import { IssuesComponent } from './issues/issues.component';
 import { IssueDetailsComponent } from './issue-details/issue-details.component';
 import { CommentComponent } from './comment/comment.component';
+import { IssueComposerComponent } from './issue-composer/issue-composer';
 
 @NgModule({
   declarations: [
@@ -40,7 +46,8 @@ import { CommentComponent } from './comment/comment.component';
     HomeComponent,
     IssuesComponent,
     IssueDetailsComponent,
-    CommentComponent
+    CommentComponent,
+    IssueComposerComponent
   ],
   imports: [
     BrowserModule,
@@ -68,13 +75,18 @@ import { CommentComponent } from './comment/comment.component';
     MatListModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
     MatButtonModule,
+    MatMenuModule,
+    MatIconModule,
     MatCardModule,
     MatTabsModule,
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatDividerModule
+    MatDividerModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,23 @@
+<mat-spinner mode="indeterminate" class="spinner" *ngIf="loading"></mat-spinner>
 <div class="issue-container" *ngIf="issue">
-    <header>Issue details</header>
+    <header>
+        <h3>Issue details</h3>
+        <div *ngIf="issue.informer._id === myUserInfo.id">
+            <mat-menu #issueOptions="matMenu" xPosition="before">
+                <a [routerLink]="['./edit']" mat-menu-item>Edit issue</a>
+                <button mat-menu-item (click)="deleteIssue(issue._id)">Delete issue</button>
+            </mat-menu>
+
+            <button mat-icon-button [matMenuTriggerFor]="issueOptions">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+        </div>
+    </header>
     <div class="basic-info">
+        <p class="summary">
+            <span>Summary: </span>
+            {{issue.summary}}
+        </p>
         <div class="left-column">
             <p>
                 <span>Issue ID: </span>
@@ -21,6 +38,10 @@
             <p>
                 <span>Project: </span>
                 {{issue.project.name}}
+            </p>
+            <p class="tags">
+                <span>Tags: </span>
+                {{issue.tags}}
             </p>
         </div>
         <div class="right-column">
@@ -49,21 +70,16 @@
                 {{issue.product_version}}
             </p>
         </div>
-        <p class="tags"><span>Tags: </span>{{issue.tags}}</p>
     </div>
     <mat-divider></mat-divider>
     <main class="main-info">
         <p>
-            <span>Summary: </span>
-            {{issue.summary}}
-        </p>
-        <p>
             <span>Description: </span>
-            {{issue.description}}
+            <quill-view [content]="issue.description" format="text" theme="snow"></quill-view>
         </p>
         <p *ngIf="issue.steps_to_reproduce">
             <span>Steps to reproduce: </span>
-            {{issue.steps_to_reproduce}}
+            <quill-view [content]="issue.steps_to_reproduce" format="text" theme="snow"></quill-view>
         </p>
     </main>
 </div>
@@ -72,6 +88,7 @@
     <header>Comments</header>
     <app-comment *ngFor="let comment of issue.comments" [comment]="comment" [myUserInfo]="myUserInfo"
         (commentContent)="handleCommentContent($event)"></app-comment>
+    <p *ngIf="issue.comments.length === 0" class="no-comments">No comments yet</p>
     <header>New comment</header>
     <form [formGroup]="newCommentForm" (ngSubmit)="handleNewComment()">
         <quill-editor (onEditorCreated)="getEditorInstance($event)" theme="snow" formControlName="textarea">

@@ -1,0 +1,62 @@
+.issue-container {
+    h2 {
+        margin: 1em 0;
+        text-align: center;
+        font-size: 1.8em;
+        color: #3f51b5;
+    }
+
+    form {
+        padding: 0 5em;
+        display: grid;
+        grid-template-areas: "summary summary" "first-half second-half" "third-half third-half";
+        column-gap: 2em;
+
+        .first-half {
+            grid-area: first-half;
+        }
+
+        .second-half {
+            grid-area: second-half;
+        }
+
+        .third-half {
+            grid-area: third-half;
+        }
+
+        .mat-form-field {
+            display: block;
+            width: fit-content;
+        }
+
+        .mat-hint {
+            font-size: 0.85em;
+        }
+
+        .summary,
+        .description,
+        .steps-to-reproduce {
+            width: 100%;
+        }
+
+        .summary {
+            grid-area: summary;
+        }
+
+        .description,
+        .steps-to-reproduce {
+            margin-bottom: 1em;
+
+            label {
+                display: inline-block;
+                margin: 1em 0;
+                font-size: 1.05em;
+                color: #3f51b5;
+            }
+        }
+
+        button {
+            width: min-content;
+        }
+    }
+}

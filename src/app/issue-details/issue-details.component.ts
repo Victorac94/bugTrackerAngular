@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { IssueService } from '../issue.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { IssueService } from '../issue.service';
 import { CommentService } from '../comment.service';
 
 @Component({
@@ -17,16 +19,20 @@ export class IssueDetailsComponent implements OnInit {
   sendingComment: boolean;
   isValidComment: boolean;
   myUserInfo: any;
+  loading: boolean;
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private issueService: IssueService,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private _snackBar: MatSnackBar
   ) {
     this.issue = null;
     this.sendingComment = false;
     this.myUserInfo = null;
     this.isValidComment = false;
+    this.loading = false;
     this.newCommentForm = new FormGroup({
       textarea: new FormControl('', [
         Validators.minLength(1),
@@ -43,12 +49,40 @@ export class IssueDetailsComponent implements OnInit {
     this.myUserInfo = JSON.parse(localStorage.getItem('user-info'));
   }
 
+  // Get issue details
   async issueDetails(issueId): Promise<any> {
     try {
+      // Show loading bar
+      this.loading = true;
+
       const response = await this.issueService.getIssue(issueId);
+
+      // Hide loading bar
+      this.loading = false;
 
       this.issue = response.issue;
       console.log(this.issue);
+      console.log(this.myUserInfo, this.issue.informer)
+
+    } catch (err) {
+      console.log(err);
+      // Hide loading bar
+      this.loading = false;
+    }
+  }
+
+  // Delete issue
+  async deleteIssue(issueId) {
+    try {
+      const response = await this.issueService.deleteIssue(issueId);
+
+      console.log(response);
+      this.router.navigate(['/issues']);
+
+      // Show snackbar with success message
+      setTimeout(() => {
+        this.openSnackBar('Issue deleted successfully', 'Dismiss');
+      }, 300);
 
     } catch (err) {
       console.log(err);
@@ -92,6 +126,9 @@ export class IssueDetailsComponent implements OnInit {
       this.issue.comments.push(response['comment'])
       this.isValidComment = false;
 
+      // Show snackbar with success message
+      this.openSnackBar('Comment added successfully', 'Dismiss');
+
     } catch (err) {
       console.log(err);
       this.sendingComment = false;
@@ -106,5 +143,11 @@ export class IssueDetailsComponent implements OnInit {
     this.quill.clipboard.dangerouslyPasteHTML(0, $event);
     // Disable sending the comment until it has been modified
     this.isValidComment = false;
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000
+    });
   }
 }

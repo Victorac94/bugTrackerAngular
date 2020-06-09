@@ -12,33 +12,66 @@ export class CommentComponent implements OnInit {
 
   @Input() comment: any;
   @Input() myUserInfo: any;
-  @Output() commentContent: EventEmitter<any>;
   @ViewChild('commentElem') commentElem: ElementRef;
+  editingComment: boolean;
+  commentTextBeforeEditing: any;
 
   constructor(
     private commentService: CommentService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
   ) {
-    this.commentContent = new EventEmitter();
+    this.editingComment = false;
   }
 
   ngOnInit(): void {
   }
 
-  handleEditComment($event) {
-    // Get comment's raw content
-    const content = $event.currentTarget.parentElement.parentElement.querySelector('.ql-editor').innerHTML;
+  enableCommentEdit() {
+    // Show edit comment buttons
+    this.editingComment = true;
 
-    this.commentContent.emit(content);
+    // We need to store comment's text value before editing
+    // because of ngModel binding in the quill-editor
+    this.commentTextBeforeEditing = this.comment.text;
+  }
+
+  disableCommentEdit() {
+    // Hide edit comment buttons
+    this.editingComment = false;
+
+    // Restore text value of comment before we enabled edit
+    this.comment.text = this.commentTextBeforeEditing;
+  }
+
+  async handleSubmitEditedComment($event) {
+    try {
+      // Get comment's raw content
+      const commentData = $event.currentTarget.parentElement.parentElement.querySelector('.ql-editor').innerHTML;
+
+      // Submit comment content to DB
+      await this.commentService.editComment(commentData, this.comment._id);
+
+      // Exit editing mode and save new edited content to edited comment
+      this.editingComment = false;
+      this.comment.text = commentData;
+
+      // Show success message
+      this.openSnackBar('Comment edited successfully', 'Dismiss');
+
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async handleDeleteComment() {
     try {
+      // Request to delete selected comment from DB
       await this.commentService.deleteComment(this.comment);
 
+      // If successful remove comment element from html
       this.commentElem.nativeElement.parentNode.remove();
 
-      // Show snackbar with successful delete message
+      // Show success message
       this.openSnackBar('Message deleted successfully', 'Dismiss');
 
     } catch (err) {
@@ -47,9 +80,11 @@ export class CommentComponent implements OnInit {
   }
 
   openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 2000
-    })
+    setTimeout(() => {
+      this._snackBar.open(message, action, {
+        duration: 2000
+      })
+    }, 300);
   }
 
 }

@@ -6,13 +6,19 @@
         <h3 [routerLink]="['/user', comment.author._id]">{{comment.author.name}}</h3>
     </aside>
     <main>
-        <quill-view [content]="comment.text" format="text" theme="snow"></quill-view>
+        <quill-view *ngIf="!editingComment" [content]="comment.text" format="text" theme="snow"></quill-view>
+        <quill-editor *ngIf="editingComment" [(ngModel)]="comment.text" theme="snow">
+        </quill-editor>
         <p class="creation_date">Posted on {{comment.creation_date * 1000 | date:'d/MMM/yy hh:mm:ss'}}h</p>
         <p class="modification_date" *ngIf="comment.modification_date">Modified on
             {{comment.modification_date * 1000 | date:'d/MMM/yy hh:mm:ss'}}h</p>
     </main>
-    <div class="comment-options" *ngIf="myUserInfo?.id === comment.author._id">
-        <button mat-raised-button color="accent" (click)="handleEditComment($event)">Edit</button>
-        <button mat-raised-button color="warn" (click)="handleDeleteComment()">Delete</button>
+    <div [ngClass]="{'comment-options': true, 'show': editingComment}" *ngIf="myUserInfo?.id === comment.author._id">
+        <button *ngIf="!editingComment" mat-raised-button color="accent" (click)="enableCommentEdit()">Edit</button>
+        <button *ngIf="!editingComment" mat-raised-button color="warn" (click)="handleDeleteComment()">Delete</button>
+        <button *ngIf="editingComment" mat-raised-button color="accent" (click)="disableCommentEdit()">Cancel
+            edit</button>
+        <button *ngIf="editingComment" mat-raised-button color="primary"
+            (click)="handleSubmitEditedComment($event)">Submit edit</button>
     </div>
 </article>

@@ -23,6 +23,19 @@ export class CommentService {
     }
   }
 
+  async editComment(data, commentId) {
+    try {
+      const commentData = {
+        text: data
+      }
+
+      return await this.httpClient.put(`${this.url}/${commentId}/edit`, commentData, this.createHeaders()).toPromise();
+
+    } catch (err) {
+      throw err;
+    }
+  }
+
   async deleteComment(comment) {
     try {
       const deleteURL = `${this.url}/${comment._id}/delete`;

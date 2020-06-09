@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { IssueService } from '../issue.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-issue-composer',
@@ -17,7 +18,9 @@ export class IssueComposerComponent implements OnInit {
 
   constructor(
     private issueService: IssueService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private _snackBar: MatSnackBar
   ) {
     this.isEditMode = false;
     this.issueCustomId = 0;
@@ -116,12 +119,18 @@ export class IssueComposerComponent implements OnInit {
       // If we are editing an issue
       if (isEditMode) {
         response = await this.issueService.editIssue(this.issueForm.value, this.issueId);
-        this.router.navigate(['../']);
+        this.router.navigate(['../'], { relativeTo: this.route });
+
+        // Show success message
+        this.openSnackBar('Issue edited successfuly', 'Dismiss');
 
         // If we are creating a new issue
       } else {
         response = await this.issueService.newIssue(this.issueForm.value);
         this.router.navigate(['/issues']);
+
+        // Show success message
+        this.openSnackBar('Issue created successfuly', 'Dismiss');
       }
 
       console.log(response);
@@ -130,5 +139,13 @@ export class IssueComposerComponent implements OnInit {
       console.log(err);
     }
 
+  }
+
+  openSnackBar(message: string, action: string) {
+    setTimeout(() => {
+      this._snackBar.open(message, action, {
+        duration: 2000
+      })
+    }, 300);
   }
 }

@@ -46,10 +46,6 @@
 
     .comment-options {
         display: none;
-    }
-
-    &:hover .comment-options {
-        display: block;
         position: absolute;
         bottom: 1em;
         right: 1em;
@@ -58,5 +54,13 @@
             font-size: 0.9em;
             margin-right: 1em;
         }
+    }
+
+    .show {
+        display: block;
+    }
+
+    &:hover .comment-options {
+        display: block;
     }
 }

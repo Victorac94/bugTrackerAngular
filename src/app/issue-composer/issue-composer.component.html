@@ -136,7 +136,8 @@
                 </mat-error>
             </div>
         </div>
-        <button mat-raised-button color="primary"
-            [disabled]="issueForm.invalid">{{isEditMode ? 'Submit edit' : 'Create issue'}}</button>
+        <button *ngIf="!isEditMode" mat-raised-button color="primary" [disabled]="issueForm.invalid">Create
+            issue</button>
+        <button *ngIf="isEditMode" mat-raised-button color="primary" [disabled]="!issueForm.dirty">Submit edit</button>
     </form>
 </div>

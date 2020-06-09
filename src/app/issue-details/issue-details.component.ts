@@ -110,39 +110,33 @@ export class IssueDetailsComponent implements OnInit {
 
   async handleNewComment() {
     try {
+      // Compose comment data
       const body = {
         text: this.newCommentForm.controls.textarea.value,
         issue: this.issue._id
       }
 
+      // Show 'Sending...' text in submit button
       this.sendingComment = true;
 
+      // Send and save new comment to DB
       const response = await this.commentService.newComment(body);
 
+      // Reset submit button text to initial value
       this.sendingComment = false;
 
-      // Clear text editor and push new comment to this issue's comment list (visually)
+      // Clear text editor and push new comment to this issue's array of comments (for visual purposes)
       this.quill.setContents([]);
       this.issue.comments.push(response['comment'])
       this.isValidComment = false;
 
-      // Show snackbar with success message
+      // Show success message
       this.openSnackBar('Comment added successfully', 'Dismiss');
 
     } catch (err) {
       console.log(err);
       this.sendingComment = false;
     }
-  }
-
-  handleCommentContent($event) {
-    this.quill.focus();
-    // Clear quill-editor contents
-    this.quill.setContents([]);
-    // Fill quill-editor with the selected comment's value
-    this.quill.clipboard.dangerouslyPasteHTML(0, $event);
-    // Disable sending the comment until it has been modified
-    this.isValidComment = false;
   }
 
   openSnackBar(message: string, action: string) {

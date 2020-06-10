@@ -6,7 +6,7 @@
         <h3 [routerLink]="['/user', comment.author._id]">{{comment.author.name}}</h3>
     </aside>
     <main>
-        <quill-view *ngIf="!editingComment" [content]="comment.text" format="text" theme="snow"></quill-view>
+        <quill-view *ngIf="!editingComment" [content]="comment.text" theme="snow"></quill-view>
         <quill-editor *ngIf="editingComment" [(ngModel)]="comment.text" theme="snow">
         </quill-editor>
         <p class="creation_date">Posted on {{comment.creation_date * 1000 | date:'d/MMM/yy hh:mm:ss'}}h</p>

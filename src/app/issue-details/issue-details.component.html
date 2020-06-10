@@ -47,7 +47,9 @@
         <div class="right-column">
             <p>
                 <span>Informer: </span>
-                {{issue.informer.name}}
+                <a [routerLink]="['/user', issue.informer._id]">
+                    {{issue.informer.name}}
+                </a>
             </p>
             <p>
                 <span>Category: </span>

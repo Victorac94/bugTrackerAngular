@@ -29,6 +29,6 @@ export class TableComponent implements OnInit {
 
   applyFilter(event) {
     const filterValue = event.target.value;
-    this.tableData.filter = filterValue.trim().toLowerCase();
+    this.tableData.filter = filterValue.trim();
   }
 }

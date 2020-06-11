@@ -27,7 +27,7 @@ export class UserComponent implements OnInit {
   async loadUserData(userId): Promise<any> {
     try {
       const response = await this.userService.fetchUserData(userId);
-      this.userData = response.user[0];
+      this.userData = response.user;
       console.log(this.userData);
 
     } catch (err) {

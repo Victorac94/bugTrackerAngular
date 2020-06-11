@@ -6,16 +6,23 @@
         [routerLinkActiveOptions]="{ exact: true }">
         Home
     </a>
-    <a mat-list-item [routerLink]="['/issues']" routerLinkActive="router-link-active">
+    <a mat-list-item [routerLink]="['/issues']" routerLinkActive="router-link-active"
+        [routerLinkActiveOptions]="{exact: true}">
         Issues
     </a>
-    <a mat-list-item [routerLink]="['/issues/new']" routerLinkActive="router-link-active">
+    <a mat-list-item *ngIf="isLoggedIn" [routerLink]="['/issues/new']" routerLinkActive="router-link-active">
         New Issue
     </a>
-    <a mat-list-item [routerLink]="['/login']" routerLinkActive="router-link-active">
+    <a mat-list-item *ngIf="isLoggedIn" [routerLink]="['/user', userInfo._id]" routerLinkActive="router-link-active">
+        Profile
+    </a>
+    <a mat-list-item *ngIf="isLoggedIn" (click)="logout()">
+        Logout
+    </a>
+    <a mat-list-item *ngIf="!isLoggedIn" [routerLink]="['/login']" routerLinkActive="router-link-active">
         Login
     </a>
-    <a mat-list-item [routerLink]="['/register']" routerLinkActive="router-link-active">
+    <a mat-list-item *ngIf="!isLoggedIn" [routerLink]="['/register']" routerLinkActive="router-link-active">
         Register
     </a>
 </mat-nav-list>

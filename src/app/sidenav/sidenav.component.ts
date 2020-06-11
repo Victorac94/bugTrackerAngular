@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-sidenav',
@@ -7,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidenavComponent implements OnInit {
 
-  constructor() { }
+  @Input() isLoggedIn: boolean;
+  @Input() userInfo: any;
+  @Output() logoutEvent: EventEmitter<any>;
+
+  constructor() {
+    this.logoutEvent = new EventEmitter();
+  }
 
   ngOnInit(): void {
+  }
+
+  logout() {
+    this.logoutEvent.emit();
   }
 
 }

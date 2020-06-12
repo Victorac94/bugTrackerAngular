@@ -8,33 +8,32 @@
     box-sizing: border-box;
     padding: 1em;
     color: white;
-    background-color: #3F51B5;
-}    
+    background-color: #3f51b5;
+}
 
 .table-container {
     width: 100%;
-    overflow-X: auto;
-}    
 
-table {
-    width: 600px;
-    margin-bottom: 2em;
+    .table-wrapper {
+        overflow-x: auto;
 
-    .issue-id {
-        cursor: pointer;
-        text-decoration: underline;
-        line-height: 1.2em;
-        color: #ff4081;
+        table {
+            min-width: 640px;
+            margin-bottom: 2em;
+
+            .issue-id {
+                cursor: pointer;
+                text-decoration: underline;
+                line-height: 1.2em;
+                color: #ff4081;
+            }
+        }
+
+        .single-table {
+            margin-bottom: 0;
+        }
     }
 }
-
-.single-table {
-    margin-bottom: 0;
-}
-
-// .mat-paginator {
-//     margin-bottom: 2em;
-// }
 
 @media (min-width: 640px) {
     table {

@@ -2,7 +2,7 @@
 <div class="issue-container" *ngIf="issue">
     <header>
         <h3>Issue details</h3>
-        <div *ngIf="issue.informer._id === myUserInfo.id">
+        <div *ngIf="issue.informer._id === myUserInfo?.id">
             <mat-menu #issueOptions="matMenu" xPosition="before">
                 <a [routerLink]="['./edit']" mat-menu-item>Edit issue</a>
                 <button mat-menu-item (click)="deleteIssue(issue._id)">Delete issue</button>

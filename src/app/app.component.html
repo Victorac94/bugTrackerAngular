@@ -1,7 +1,7 @@
 <mat-sidenav-container class="container">
   <!-- Sidenav -->
-  <mat-sidenav class="sidenav" [mode]="desktop ? 'side' : 'push'" [opened]="desktop ? true : false"
-    [position]="desktop ? 'start' : 'end'">
+  <mat-sidenav #sidenav class="sidenav" [mode]="desktop ? 'side' : 'push'" [opened]="desktop ? true : false"
+    [position]="desktop ? 'start' : 'end'" (click)="!desktop ? sidenav.close() : null">
     <app-sidenav [isLoggedIn]="isLoggedIn" [userInfo]="userInfo" (logoutEvent)="logoutHandler()"></app-sidenav>
   </mat-sidenav>
   <!-- Main content -->
@@ -9,3 +9,7 @@
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
+<!-- Menu button - mobile -->
+<button mat-mini-fab *ngIf="!desktop" color="primary" class="menu-button" aria-label="Menu" (click)="sidenav.toggle()">
+  <mat-icon>menu</mat-icon>
+</button>

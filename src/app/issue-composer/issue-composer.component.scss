@@ -7,10 +7,9 @@
     }
 
     form {
-        padding: 0 5em;
         display: grid;
         grid-template-areas: "summary summary" "first-half second-half" "third-half third-half";
-        column-gap: 2em;
+        column-gap: 1em;
 
         .first-half {
             grid-area: first-half;
@@ -58,5 +57,13 @@
         button {
             width: min-content;
         }
+    }
+}
+
+// Desktop
+@media (min-width: 960px) {
+    form {
+        padding: 0 5em;
+        column-gap: 2em;
     }
 }

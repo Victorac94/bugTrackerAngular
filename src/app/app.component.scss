@@ -8,6 +8,18 @@
 }
 
 .main-content {
-    padding: 1.5em 2em;
+    padding: 1em;
     box-sizing: border-box;
+}
+.menu-button {
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+    z-index: 1000;
+}
+
+@media (min-width: 960px) {
+    .main-content {
+        padding: 1.5em 2em;
+    }
 }

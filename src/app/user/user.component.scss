@@ -1,6 +1,4 @@
 .user-container {
-    padding: 1em;
-
     .user-main {
         display: flex;
         flex-direction: column;
@@ -49,6 +47,8 @@
 
 @media (min-width: 960px) {
     .user-container {
+        padding: 1em;
+
         .user-main {
             flex-direction: row;
             justify-content: flex-start;

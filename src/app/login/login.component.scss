@@ -7,6 +7,7 @@
     h2 {
         text-align: center;
         margin-top: 2em;
+        color: #3f51b5;
     }
 
     .login-form {
@@ -21,5 +22,12 @@
         mat-hint {
             color: red;
         }
+    }
+}
+
+@media (min-width: 960px) {
+    .login-container {
+        width: 500px;
+        margin: 0 auto;
     }
 }

@@ -63,6 +63,15 @@ export class IssueService {
     }
   }
 
+  // Close issue
+  async toggleIssueState(issueId, state): Promise<any> {
+    try {
+      return await this.httpClient.patch(`${this.url}/${issueId}/close`, { state: state }, this.createHeaders()).toPromise();
+    } catch (err) {
+      throw err;
+    }
+  }
+
   createHeaders() {
     const userToken = localStorage.getItem('user-token');
 

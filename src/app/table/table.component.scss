@@ -36,7 +36,13 @@
 }
 
 @media (min-width: 640px) {
-    table {
-        width: 100%;
+    .table-container {
+        .table-wrapper {
+            overflow-x: initial;
+
+            table {
+                width: 100%;
+            }
+        }
     }
 }

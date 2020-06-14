@@ -90,6 +90,23 @@ export class IssueDetailsComponent implements OnInit {
     }
   }
 
+  async toggleIssueState(issueId, state) {
+    try {
+      const response = await this.issueService.toggleIssueState(issueId, state);
+
+      // this.router.navigate(['/issues']);
+      this.issue.state = state;
+
+      // Show snackbar with success message
+      setTimeout(() => {
+        this.openSnackBar(`Issue ${state} successfully`, 'Dismiss');
+      }, 300);
+
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   // Get quill instance when loading this page
   getEditorInstance($event) {
     this.quill = $event;

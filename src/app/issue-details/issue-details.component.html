@@ -4,8 +4,12 @@
         <h3>Issue details</h3>
         <div *ngIf="issue.informer._id === myUserInfo?._id && isLoggedIn">
             <mat-menu #issueOptions="matMenu" xPosition="before">
-                <a [routerLink]="['./edit']" mat-menu-item>Edit issue</a>
+                <a *ngIf="issue.state === 'open'" [routerLink]="['./edit']" mat-menu-item>Edit issue</a>
                 <button mat-menu-item (click)="deleteIssue(issue._id)">Delete issue</button>
+                <button *ngIf="issue.state === 'open'" mat-menu-item
+                    (click)="toggleIssueState(issue._id, 'closed')">Close issue</button>
+                <button *ngIf="issue.state === 'closed'" mat-menu-item
+                    (click)="toggleIssueState(issue._id, 'open')">Re-open issue</button>
             </mat-menu>
 
             <button mat-icon-button [matMenuTriggerFor]="issueOptions">
@@ -88,14 +92,18 @@
 <!-- Comments -->
 <section class="comments" *ngIf="issue">
     <header>Comments</header>
-    <app-comment *ngFor="let comment of issue.comments" [comment]="comment" [myUserInfo]="myUserInfo"
-        [isLoggedIn]="isLoggedIn"></app-comment>
+    <app-comment *ngFor="let comment of issue.comments" [issueState]="issue.state" [comment]="comment"
+        [myUserInfo]="myUserInfo" [isLoggedIn]="isLoggedIn"></app-comment>
     <p *ngIf="issue.comments.length === 0" class="no-comments">No comments yet</p>
     <header>New comment</header>
-    <form [formGroup]="newCommentForm" (ngSubmit)="handleNewComment()">
+    <form *ngIf="issue.state === 'open'; else issueIsClosed" [formGroup]="newCommentForm"
+        (ngSubmit)="handleNewComment()">
         <quill-editor (onEditorCreated)="getEditorInstance($event)" theme="snow" formControlName="textarea">
         </quill-editor>
         <button mat-raised-button color="primary" class="send-comment"
             [disabled]="!isValidComment">{{sendingComment ? 'Sending...' : 'Send comment'}}</button>
     </form>
+    <ng-template #issueIsClosed>
+        <p>Can't post new comments since this issue is closed.</p>
+    </ng-template>
 </section>

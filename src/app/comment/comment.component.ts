@@ -13,6 +13,7 @@ export class CommentComponent implements OnInit {
   @Input() comment: any;
   @Input() myUserInfo: any;
   @Input() isLoggedIn: boolean;
+  @Input() issueState: string;
   @ViewChild('commentElem') commentElem: ElementRef;
   editingComment: boolean;
   commentTextBeforeEditing: any;
@@ -68,7 +69,6 @@ export class CommentComponent implements OnInit {
     try {
       // Request to delete selected comment from DB
       const response = await this.commentService.deleteComment(this.comment);
-      console.log(this.comment);
       console.log(response);
 
       // If successful remove comment element from html

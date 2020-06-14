@@ -66,7 +66,7 @@ export class IssueService {
   // Close issue
   async toggleIssueState(issueId, state): Promise<any> {
     try {
-      return await this.httpClient.patch(`${this.url}/${issueId}/close`, { state: state }, this.createHeaders()).toPromise();
+      return await this.httpClient.patch(`${this.url}/${issueId}/toggle-state`, { state: state }, this.createHeaders()).toPromise();
     } catch (err) {
       throw err;
     }

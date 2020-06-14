@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { IssueService } from '../issue.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ProjectService } from '../project.service';
 
 @Component({
   selector: 'app-issue-composer',
@@ -15,9 +16,11 @@ export class IssueComposerComponent implements OnInit {
   isEditMode: boolean;
   issueCustomId: number;
   issueId: string;
+  projects: any;
 
   constructor(
     private issueService: IssueService,
+    private projectService: ProjectService,
     private router: Router,
     private route: ActivatedRoute,
     private _snackBar: MatSnackBar
@@ -25,6 +28,7 @@ export class IssueComposerComponent implements OnInit {
     this.isEditMode = false;
     this.issueCustomId = 0;
     this.issueId = '';
+    this.projects = [];
     this.issueForm = new FormGroup({
       summary: new FormControl('', [
         Validators.required,
@@ -84,6 +88,12 @@ export class IssueComposerComponent implements OnInit {
       this.getIssueDetails(edit[1]);
       this.isEditMode = true;
     }
+
+    // Get all existing projects
+    this.projectService.getAll()
+      .then(response => {
+        this.projects = response;
+      })
   }
 
   // Only called when editing an existing issue

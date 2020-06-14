@@ -6,19 +6,19 @@ import { environment as env } from '../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class RegisterService {
+export class ProjectService {
 
-  url: string;
+  baseUrl: string;
 
   constructor(
     private httpClient: HttpClient
   ) {
-    this.url = env.baseUrl + '/users/new';
+    this.baseUrl = env.baseUrl + '/projects';
   }
 
-  async sendRegisterForm(formValue): Promise<any> {
+  async getAll(): Promise<any> {
     try {
-      return await this.httpClient.post<any>(this.url, formValue).toPromise();
+      return await this.httpClient.get(this.baseUrl).toPromise();
 
     } catch (err) {
       throw err;

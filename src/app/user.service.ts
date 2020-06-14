@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+import { environment as env } from '../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,7 +13,7 @@ export class UserService {
   constructor(
     private httpClient: HttpClient
   ) {
-    this.url = 'http://localhost:3000/users/';
+    this.url = env.baseUrl + '/users/';
   }
 
   async fetchUserData(userId): Promise<any> {

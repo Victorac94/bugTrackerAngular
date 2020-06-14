@@ -61,6 +61,7 @@ export class RegisterComponent implements OnInit {
 
       localStorage.setItem('user-token', response['user-token']);
       localStorage.setItem('user-info', JSON.stringify(response['user-info']));
+      localStorage.setItem('isLoggedIn', JSON.stringify(response['isLoggedIn']));
 
       // Redirect to main page
       this.router.navigate(['/']);

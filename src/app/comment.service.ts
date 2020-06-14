@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+import { environment as env } from '../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,7 +13,7 @@ export class CommentService {
   constructor(
     private httpClient: HttpClient
   ) {
-    this.url = 'http://localhost:3000/comments';
+    this.url = env.baseUrl + '/comments';
   }
 
   async newComment(comment) {
@@ -39,17 +41,18 @@ export class CommentService {
   async deleteComment(comment) {
     try {
       const deleteURL = `${this.url}/${comment._id}/delete`;
-      return await this.httpClient.delete(deleteURL, this.createHeaders()).toPromise();
+      return await this.httpClient.delete(deleteURL, this.createHeaders(comment.issue._id)).toPromise();
 
     } catch (err) {
       throw err;
     }
   }
 
-  createHeaders() {
+  createHeaders(issueId: string = '') {
     return {
       headers: new HttpHeaders({
-        'user-token': localStorage.getItem('user-token')
+        'user-token': localStorage.getItem('user-token'),
+        'issue-id': issueId
       })
     }
   }

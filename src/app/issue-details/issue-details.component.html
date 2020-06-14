@@ -2,7 +2,7 @@
 <div class="issue-container" *ngIf="issue">
     <header>
         <h3>Issue details</h3>
-        <div *ngIf="issue.informer._id === myUserInfo?.id">
+        <div *ngIf="issue.informer._id === myUserInfo?._id && isLoggedIn">
             <mat-menu #issueOptions="matMenu" xPosition="before">
                 <a [routerLink]="['./edit']" mat-menu-item>Edit issue</a>
                 <button mat-menu-item (click)="deleteIssue(issue._id)">Delete issue</button>
@@ -88,7 +88,8 @@
 <!-- Comments -->
 <section class="comments" *ngIf="issue">
     <header>Comments</header>
-    <app-comment *ngFor="let comment of issue.comments" [comment]="comment" [myUserInfo]="myUserInfo"></app-comment>
+    <app-comment *ngFor="let comment of issue.comments" [comment]="comment" [myUserInfo]="myUserInfo"
+        [isLoggedIn]="isLoggedIn"></app-comment>
     <p *ngIf="issue.comments.length === 0" class="no-comments">No comments yet</p>
     <header>New comment</header>
     <form [formGroup]="newCommentForm" (ngSubmit)="handleNewComment()">

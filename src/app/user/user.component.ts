@@ -28,7 +28,6 @@ export class UserComponent implements OnInit {
     try {
       const response = await this.userService.fetchUserData(userId);
       this.userData = response.user;
-      console.log(this.userData);
 
     } catch (err) {
       console.log(err);

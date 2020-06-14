@@ -26,7 +26,6 @@ export class HomeComponent implements OnInit {
     try {
       const issues = await this.issueService.getAll();
 
-      console.log(issues);
       this.latestIssues = this.sortIssues(issues, 'open');
       this.closedIssues = this.sortIssues(issues, 'closed');
 

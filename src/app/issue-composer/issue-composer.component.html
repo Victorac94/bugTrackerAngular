@@ -19,7 +19,7 @@
             <mat-form-field appearance="standard">
                 <mat-label>Project name</mat-label>
                 <mat-select formControlName="project" required>
-                    <mat-option value="5ed4eab42d31ac1c74c08b86">Main project</mat-option>
+                    <mat-option *ngFor="let project of projects" [value]="project._id">{{project.name}}</mat-option>
                 </mat-select>
                 <mat-error *ngIf="issueForm.controls.project.errors?.required && issueForm.controls.project.touched">
                     Project is

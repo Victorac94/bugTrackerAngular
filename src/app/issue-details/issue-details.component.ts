@@ -19,6 +19,7 @@ export class IssueDetailsComponent implements OnInit {
   sendingComment: boolean;
   isValidComment: boolean;
   myUserInfo: any;
+  isLoggedIn: boolean;
   loading: boolean;
 
   constructor(
@@ -33,6 +34,7 @@ export class IssueDetailsComponent implements OnInit {
     this.myUserInfo = null;
     this.isValidComment = false;
     this.loading = false;
+    this.isLoggedIn = false;
     this.newCommentForm = new FormGroup({
       textarea: new FormControl('', [
         Validators.minLength(1),
@@ -47,6 +49,7 @@ export class IssueDetailsComponent implements OnInit {
     });
 
     this.myUserInfo = JSON.parse(localStorage.getItem('user-info'));
+    this.isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
   }
 
   // Get issue details
@@ -61,8 +64,6 @@ export class IssueDetailsComponent implements OnInit {
       this.loading = false;
 
       this.issue = response.issue;
-      console.log(this.issue);
-      console.log(this.myUserInfo, this.issue.informer)
 
     } catch (err) {
       console.log(err);

@@ -16,7 +16,7 @@
     <a mat-list-item *ngIf="isLoggedIn" [routerLink]="['/user', userInfo._id]" routerLinkActive="router-link-active">
         Profile
     </a>
-    <a mat-list-item *ngIf="isLoggedIn" (click)="logout()">
+    <a mat-list-item *ngIf="isLoggedIn" (click)="logoutHandler()">
         Logout
     </a>
     <a mat-list-item *ngIf="!isLoggedIn" [routerLink]="['/login']" routerLinkActive="router-link-active">

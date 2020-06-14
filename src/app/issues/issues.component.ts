@@ -23,7 +23,6 @@ export class IssuesComponent implements OnInit {
   async getIssues(): Promise<any> {
     try {
       this.issues = await this.issueService.getAll();
-      console.log(this.issues);
 
     } catch (err) {
       console.log(err);

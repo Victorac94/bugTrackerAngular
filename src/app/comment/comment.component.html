@@ -13,7 +13,8 @@
         <p class="modification_date" *ngIf="comment.modification_date">Modified on
             {{comment.modification_date * 1000 | date:'d/MMM/yy hh:mm:ss'}}h</p>
     </main>
-    <div [ngClass]="{'comment-options': true, 'show': editingComment}" *ngIf="myUserInfo?.id === comment.author._id">
+    <div [ngClass]="{'comment-options': true, 'show': editingComment}"
+        *ngIf="myUserInfo?._id === comment.author._id && isLoggedIn">
         <button *ngIf="!editingComment" mat-raised-button color="accent" (click)="enableCommentEdit()">Edit</button>
         <button *ngIf="!editingComment" mat-raised-button color="warn" (click)="handleDeleteComment()">Delete</button>
         <button *ngIf="editingComment" mat-raised-button color="accent" (click)="disableCommentEdit()">Cancel

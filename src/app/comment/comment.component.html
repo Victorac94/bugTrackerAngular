@@ -9,9 +9,9 @@
         <quill-view *ngIf="!editingComment" [content]="comment.text" theme="snow"></quill-view>
         <quill-editor *ngIf="editingComment" [(ngModel)]="comment.text" theme="snow">
         </quill-editor>
-        <p class="creation_date">Posted on {{comment.creation_date * 1000 | date:'d/MMM/yy hh:mm:ss'}}h</p>
+        <p class="creation_date">Posted on {{comment.creation_date * 1000 | date:'d/MMM/yy H:mm'}}h</p>
         <p class="modification_date" *ngIf="comment.modification_date">Modified on
-            {{comment.modification_date * 1000 | date:'d/MMM/yy hh:mm:ss'}}h</p>
+            {{comment.modification_date * 1000 | date:'d/MMM/yy H:mm'}}h</p>
     </main>
     <div [ngClass]="{'comment-options': true, 'show': editingComment}"
         *ngIf="issueState === 'open' && myUserInfo?._id === comment.author._id && isLoggedIn">

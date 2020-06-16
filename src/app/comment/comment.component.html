@@ -9,19 +9,28 @@
         <p>#{{commentIndex}}</p>
         <p>Posted {{comment.creation_date * 1000 | date:'d/MMM/yy H:mm'}}h</p>
         <p *ngIf="comment.modification_date">Modified {{comment.modification_date * 1000 | date:'d/MMM/yy H:mm'}}h</p>
+        <div class="show-options-container"
+            *ngIf="issueState === 'open' && myUserInfo?._id === comment.author._id && isLoggedIn">
+            <mat-menu #commentOptions="matMenu" xPosition="before">
+                <button *ngIf="!editingComment" mat-menu-item (click)="enableCommentEdit()">Edit</button>
+                <button *ngIf="!editingComment" mat-menu-item (click)="handleDeleteComment()">Delete</button>
+            </mat-menu>
+
+            <button class="show-options" mat-icon-button [matMenuTriggerFor]="commentOptions">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+        </div>
     </div>
     <main class="comment-text">
         <quill-view *ngIf="!editingComment" [content]="comment.text" theme="snow"></quill-view>
         <quill-editor *ngIf="editingComment" [(ngModel)]="comment.text" theme="snow">
         </quill-editor>
     </main>
-    <div [ngClass]="{'comment-options': true, 'show': editingComment}"
-        *ngIf="issueState === 'open' && myUserInfo?._id === comment.author._id && isLoggedIn">
-        <button *ngIf="!editingComment" mat-raised-button color="accent" (click)="enableCommentEdit()">Edit</button>
-        <button *ngIf="!editingComment" mat-raised-button color="warn" (click)="handleDeleteComment()">Delete</button>
-        <button *ngIf="editingComment" mat-raised-button color="accent" (click)="disableCommentEdit()">Cancel
-            edit</button>
+    <div [ngClass]="{'edit-buttons': true, 'active': editingComment}">
         <button *ngIf="editingComment" mat-raised-button color="primary"
-            (click)="handleSubmitEditedComment($event)">Submit edit</button>
+            (click)="handleSubmitEditedComment($event)">Submit
+            edit</button>
+        <button *ngIf="editingComment" mat-raised-button color="warn" (click)="disableCommentEdit()">Cancel
+            edit</button>
     </div>
 </article>

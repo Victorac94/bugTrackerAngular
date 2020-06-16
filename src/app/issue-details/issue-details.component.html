@@ -108,7 +108,7 @@
         <p class="cant-post" *ngIf="issue.state === 'closed'; else loggedOut">The issue is closed. Can't post new
             comments</p>
         <ng-template #loggedOut>
-            <p class="cant-post">You need to log in to post new commments</p>
+            <p class="cant-post">You need to log in to post new comments</p>
         </ng-template>
     </ng-template>
 </section>

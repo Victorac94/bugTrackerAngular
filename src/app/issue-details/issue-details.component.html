@@ -91,9 +91,10 @@
 </div>
 <!-- Comments -->
 <section class="comments" *ngIf="issue">
-    <header>Comments</header>
-    <app-comment *ngFor="let comment of issue.comments" [issueState]="issue.state" [comment]="comment"
-        [myUserInfo]="myUserInfo" [isLoggedIn]="isLoggedIn"></app-comment>
+    <header>Comments ({{issue.comments.length}})</header>
+    <app-comment *ngFor="let comment of issue.comments; let index = index" [issueState]="issue.state"
+        [comment]="comment" [commentIndex]="index + 1" [myUserInfo]="myUserInfo" [isLoggedIn]="isLoggedIn">
+    </app-comment>
     <p *ngIf="issue.comments.length === 0" class="no-comments">No comments yet</p>
     <header>New comment</header>
     <form *ngIf="issue.state === 'open' && isLoggedIn; else cantPost" [formGroup]="newCommentForm"

@@ -11,6 +11,7 @@ import { CommentService } from '../comment.service';
 export class CommentComponent implements OnInit {
 
   @Input() comment: any;
+  @Input() commentIndex: number;
   @Input() myUserInfo: any;
   @Input() isLoggedIn: boolean;
   @Input() issueState: string;

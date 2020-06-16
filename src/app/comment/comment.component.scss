@@ -2,47 +2,65 @@
     width: 100%;
     display: grid;
     position: relative;
-    grid-template-columns: 20% 80%;
+    grid-template-areas: "comment-info comment-info" "user-info user-info" "comment-text comment-text";
     background-color: white;
     margin-bottom: 1em;
     border-radius: 3px;
     box-shadow: 1px 1px 2px #c5cacc;
+    overflow: hidden;
 
-    aside {
-        padding: 1em;
-        border-right: 1px solid rgba(0, 0, 0, 0.12);
+    .user-info {
+        grid-area: user-info;
+        display: flex;
+        padding: 0.5em;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 
         .user-pic-container {
-            width: 100%;
+            height: 4em;
+            max-width: 50vw;
+            margin-right: 1em;
             border-radius: 2px;
             overflow: hidden;
 
             img {
-                width: 100%;
-                height: auto;
+                width: auto;
+                height: 100%;
                 display: block;
             }
         }
 
-        h3 {
-            cursor: pointer;
+        a {
             margin: 0.7em 0;
+            display: inline-block;
         }
     }
 
-    main {
+    .comment-text {
+        grid-area: comment-text;
         padding-bottom: 2em;
+        overflow-x: auto;
+        overflow-y: hidden;
     }
 
-    .creation_date,
-    .modification_date {
-        font-size: 0.8em;
-        display: inline-block;
-    }
+    .comment-info {
+        grid-area: comment-info;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        padding: 0.5em;
+        // background-color: #b1c3ff;
+        background-color: #dbedff;
 
-    .creation_date,
-    .modification_date {
-        margin: 0 1em;
+        p {
+            font-size: 0.8em;
+            display: inline-block;
+            margin: 0 1em 0 0;
+        }
+
+        p:first-child {
+            font-size: 1.1em;
+            font-weight: 500;
+        }
     }
 
     .comment-options {
@@ -63,5 +81,30 @@
 
     &:hover .comment-options {
         display: block;
+    }
+}
+
+@media (min-width: 960px) {
+    .comment {
+        grid-template-columns: 15% 85%;
+        grid-template-areas: "comment-info comment-info" "user-info comment-text";
+
+        .user-info {
+            display: block;
+            border-bottom: 0;
+            border-right: 1px solid rgba(0, 0, 0, 0.12);
+
+            .user-pic-container {
+                width: 100%;
+                height: auto;
+                max-height: 100vh;
+                margin-right: 0;
+
+                img {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+        }
     }
 }

@@ -96,14 +96,18 @@
         [myUserInfo]="myUserInfo" [isLoggedIn]="isLoggedIn"></app-comment>
     <p *ngIf="issue.comments.length === 0" class="no-comments">No comments yet</p>
     <header>New comment</header>
-    <form *ngIf="issue.state === 'open'; else issueIsClosed" [formGroup]="newCommentForm"
+    <form *ngIf="issue.state === 'open' && isLoggedIn; else cantPost" [formGroup]="newCommentForm"
         (ngSubmit)="handleNewComment()">
         <quill-editor (onEditorCreated)="getEditorInstance($event)" theme="snow" formControlName="textarea">
         </quill-editor>
         <button mat-raised-button color="primary" class="send-comment"
             [disabled]="!isValidComment">{{sendingComment ? 'Sending...' : 'Send comment'}}</button>
     </form>
-    <ng-template #issueIsClosed>
-        <p>Can't post new comments since this issue is closed.</p>
+    <ng-template #cantPost>
+        <p class="cant-post" *ngIf="issue.state === 'closed'; else loggedOut">The issue is closed. Can't post new
+            comments</p>
+        <ng-template #loggedOut>
+            <p class="cant-post">You need to log in to post new commments</p>
+        </ng-template>
     </ng-template>
 </section>

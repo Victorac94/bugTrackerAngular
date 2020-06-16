@@ -21,14 +21,6 @@
         h3 {
             margin: 0;
         }
-
-        // a.mat-menu-item {
-        //     color: #ff4081;
-        // }
-
-        // button.mat-menu-item {
-        //     color: #f44336;
-        // }
     }
 
     .basic-info {
@@ -94,7 +86,8 @@
         margin-top: 1.5em;
     }
 
-    .no-comments {
+    .no-comments,
+    .cant-post {
         margin: 1em 0.5em;
     }
 }

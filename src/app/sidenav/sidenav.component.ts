@@ -34,6 +34,7 @@ export class SidenavComponent implements OnInit {
       if (!this.isLoggedIn) {
         // If we were not logged in, check if we are now
         this.isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
+        this.userInfo = JSON.parse(localStorage.getItem('user-info'));
       }
     })
   }

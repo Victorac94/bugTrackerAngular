@@ -1,3 +1,7 @@
+<div class="spinner" *ngIf="loading">
+    <mat-spinner mode="indeterminate"></mat-spinner>
+    <p>It might take a while the first time...</p>
+</div>
 <div class="issues-container">
     <app-table *ngIf="issues" [data]="issues"></app-table>
 </div>

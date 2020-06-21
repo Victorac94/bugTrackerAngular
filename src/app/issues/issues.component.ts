@@ -9,11 +9,13 @@ import { IssueService } from '../issue.service';
 export class IssuesComponent implements OnInit {
 
   issues: any;
+  loading: boolean;
 
   constructor(
     private issueService: IssueService
   ) {
     this.issues = null;
+    this.loading = false;
   }
 
   ngOnInit(): void {
@@ -22,10 +24,19 @@ export class IssuesComponent implements OnInit {
 
   async getIssues(): Promise<any> {
     try {
+      // Show loading spinner
+      this.loading = true;
+
+      // Get all issues in DB
       this.issues = await this.issueService.getAll();
+
+      // Hide loading spinner
+      this.loading = false;
 
     } catch (err) {
       console.log(err);
+      // Hide loading spinner
+      this.loading = false;
     }
   }
 }

@@ -1,4 +1,7 @@
-<mat-spinner mode="indeterminate" class="spinner" *ngIf="loading"></mat-spinner>
+<div class="spinner" *ngIf="loading">
+    <mat-spinner mode="indeterminate"></mat-spinner>
+    <p>It might take a while the first time...</p>
+</div>
 <div class="issue-container" *ngIf="issue">
     <header>
         <h3>Issue details</h3>

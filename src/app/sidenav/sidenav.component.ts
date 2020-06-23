@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { UserService } from '../user.service';
+// import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -15,7 +15,7 @@ export class SidenavComponent implements OnInit {
   userInfo: any;
 
   constructor(
-    private userService: UserService,
+    // private userService: UserService,
     private router: Router,
     private _snackBar: MatSnackBar
   ) {
@@ -25,7 +25,7 @@ export class SidenavComponent implements OnInit {
 
   ngOnInit(): void {
     // Check if the user is logged in
-    this.checkLogin();
+    // this.checkLogin();
 
     // Listen for navigation end event
     this.router.events.pipe(
@@ -40,29 +40,29 @@ export class SidenavComponent implements OnInit {
   }
 
   // Check if the user is logged in
-  checkLogin() {
-    const userToken = localStorage.getItem('user-token');
+  // checkLogin() {
+  //   const userToken = localStorage.getItem('user-token');
 
-    // If user token is stored on user's device, check with server if login time has not expired yet
-    if (userToken) {
-      this.userService.isLoggedIn(userToken)
-        .then(response => {
-          this.isLoggedIn = response.isLoggedIn;
-          this.userInfo = response.userInfo;
+  //   // If user token is stored on user's device, check with server if login time has not expired yet
+  //   if (userToken) {
+  //     this.userService.isLoggedIn(userToken)
+  //       .then(response => {
+  //         this.isLoggedIn = response.isLoggedIn;
+  //         this.userInfo = response.userInfo;
 
-          localStorage.setItem('user-info', JSON.stringify(response.userInfo));
-          localStorage.setItem('isLoggedIn', JSON.stringify(response.isLoggedIn));
+  //         localStorage.setItem('user-info', JSON.stringify(response.userInfo));
+  //         localStorage.setItem('isLoggedIn', JSON.stringify(response.isLoggedIn));
 
-        })
-        .catch(err => {
-          console.error(err);
-        });
+  //       })
+  //       .catch(err => {
+  //         console.error(err);
+  //       });
 
-      // If there's no user token stored on localstorage, set user is logout by default
-    } else {
-      localStorage.setItem('isLoggedIn', 'false');
-    }
-  }
+  //     // If there's no user token stored on localstorage, set user is logout by default
+  //   } else {
+  //     localStorage.setItem('isLoggedIn', 'false');
+  //   }
+  // }
 
   // Logout user
   logoutHandler() {

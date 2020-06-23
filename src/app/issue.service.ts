@@ -19,7 +19,7 @@ export class IssueService {
   // Get all issues registered on DB
   async getAll(): Promise<any> {
     try {
-      return await this.httpClient.get(this.url).toPromise();
+      return await this.httpClient.get(this.url, this.createHeaders()).toPromise();
 
     } catch (err) {
       throw err;

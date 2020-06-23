@@ -30,14 +30,14 @@ export class HomeComponent implements OnInit {
       this.loading = true;
 
       // Get latest issues
-      const issues = await this.issueService.getAll();
+      const response = await this.issueService.getAll();
 
       // Hide loading spinner
       this.loading = false;
 
       // Set latest issues to their corresponding group (open or closed state)
-      this.latestIssues = this.sortIssues(issues, 'open');
-      this.closedIssues = this.sortIssues(issues, 'closed');
+      this.latestIssues = this.sortIssues(response.issues, 'open');
+      this.closedIssues = this.sortIssues(response.issues, 'closed');
 
     } catch (err) {
       console.log(err);

@@ -27,8 +27,10 @@ export class IssuesComponent implements OnInit {
       // Show loading spinner
       this.loading = true;
 
-      // Get all issues in DB
-      this.issues = await this.issueService.getAll();
+      // Get all issues from DB
+      const response = await this.issueService.getAll();
+
+      this.issues = response.issues;
 
       // Hide loading spinner
       this.loading = false;

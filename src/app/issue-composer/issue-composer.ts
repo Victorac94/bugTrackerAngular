@@ -92,7 +92,7 @@ export class IssueComposerComponent implements OnInit {
     // Get all existing projects
     this.projectService.getAll()
       .then(response => {
-        this.projects = response;
+        this.projects = response.projects;
       })
   }
 

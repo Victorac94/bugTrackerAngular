@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { RegisterService } from '../register.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { RegisterService } from '../register.service';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +16,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private registerService: RegisterService,
-    private router: Router
+    private router: Router,
+    private _snackBar: MatSnackBar
   ) {
     this.register = new FormGroup({
       name: new FormControl('', [
@@ -66,9 +69,24 @@ export class RegisterComponent implements OnInit {
       // Redirect to main page
       this.router.navigate(['/']);
 
-    } catch (err) {
-      console.log(err);
-    }
+      this.openSnackBar(`Welcome ${response['user-info'].name}!`);
 
+    } catch (err) {
+      // Show error message
+      if (err.status === 422) {
+        this.openSnackBar(err.error, undefined, 4000)
+
+        // For errors like 500 with no custom error text
+      } else {
+        this.openSnackBar(`${err.statusText} ${err.status}`, undefined, 4000);
+      }
+    }
+  }
+
+  // Bottom screen message
+  openSnackBar(message: string, action: string = 'Dismiss', duration: number = 2000) {
+    this._snackBar.open(message, action, {
+      duration: duration
+    });
   }
 }

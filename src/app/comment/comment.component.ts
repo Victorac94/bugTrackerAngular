@@ -59,10 +59,17 @@ export class CommentComponent implements OnInit {
       this.comment.text = commentData;
 
       // Show success message
-      this.openSnackBar('Comment edited successfully', 'Dismiss');
+      this.openSnackBar('Comment edited successfully');
 
     } catch (err) {
-      console.log(err);
+      // Show error message
+      if (err.status === 422) {
+        this.openSnackBar(err.error, undefined, 4000)
+
+        // For errors like 500 with no custom error text
+      } else {
+        this.openSnackBar(`${err.statusText} ${err.status}`, undefined, 4000);
+      }
     }
   }
 
@@ -76,19 +83,25 @@ export class CommentComponent implements OnInit {
       this.commentElem.nativeElement.parentNode.remove();
 
       // Show success message
-      this.openSnackBar('Message deleted successfully', 'Dismiss');
+      this.openSnackBar('Message deleted successfully');
 
     } catch (err) {
-      console.log(err);
+      // Show error message
+      if (err.status === 422) {
+        this.openSnackBar(err.error, undefined, 4000)
+
+        // For errors like 500 with no custom error text
+      } else {
+        this.openSnackBar(`${err.statusText} ${err.status}`, undefined, 4000);
+      }
     }
   }
 
-  openSnackBar(message: string, action: string) {
-    setTimeout(() => {
-      this._snackBar.open(message, action, {
-        duration: 2000
-      })
-    }, 300);
+  // Bottom screen message
+  openSnackBar(message: string, action: string = 'Dismiss', duration: number = 2000) {
+    this._snackBar.open(message, action, {
+      duration: duration
+    });
   }
 
 }

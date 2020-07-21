@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -66,9 +66,17 @@ export class IssueDetailsComponent implements OnInit {
       this.issue = response.issue;
 
     } catch (err) {
-      console.log(err);
       // Hide loading bar
       this.loading = false;
+
+      // Show error message
+      if (err.status === 422) {
+        this.openSnackBar(err.error, undefined, 4000)
+
+        // For errors like 500 with no custom error text
+      } else {
+        this.openSnackBar(`${err.statusText} ${err.status}`, undefined, 4000);
+      }
     }
   }
 
@@ -77,16 +85,20 @@ export class IssueDetailsComponent implements OnInit {
     try {
       const response = await this.issueService.deleteIssue(issueId);
 
-      console.log(response);
       this.router.navigate(['/issues']);
 
       // Show snackbar with success message
-      setTimeout(() => {
-        this.openSnackBar('Issue deleted successfully', 'Dismiss');
-      }, 300);
+      this.openSnackBar('Issue deleted successfully');
 
     } catch (err) {
-      console.log(err);
+      // Show error message
+      if (err.status === 422) {
+        this.openSnackBar(err.error, undefined, 4000)
+
+        // For errors like 500 with no custom error text
+      } else {
+        this.openSnackBar(`${err.statusText} ${err.status}`, undefined, 4000);
+      }
     }
   }
 
@@ -98,12 +110,17 @@ export class IssueDetailsComponent implements OnInit {
       this.issue.state = state;
 
       // Show snackbar with success message
-      setTimeout(() => {
-        this.openSnackBar(`Issue ${state} successfully`, 'Dismiss');
-      }, 300);
+      this.openSnackBar(`Issue ${state} successfully`);
 
     } catch (err) {
-      console.log(err);
+      // Show error message
+      if (err.status === 422) {
+        this.openSnackBar(err.error, undefined, 4000)
+
+        // For errors like 500 with no custom error text
+      } else {
+        this.openSnackBar(`${err.statusText} ${err.status}`, undefined, 4000);
+      }
     }
   }
 
@@ -149,17 +166,26 @@ export class IssueDetailsComponent implements OnInit {
       this.isValidComment = false;
 
       // Show success message
-      this.openSnackBar('Comment added successfully', 'Dismiss');
+      this.openSnackBar('Comment added successfully');
 
     } catch (err) {
-      console.log(err);
       this.sendingComment = false;
+
+      // Show error message
+      if (err.status === 422) {
+        this.openSnackBar(err.error, undefined, 4000)
+
+        // For errors like 500 with no custom error text
+      } else {
+        this.openSnackBar(`${err.statusText} ${err.status}`, undefined, 4000);
+      }
     }
   }
 
-  openSnackBar(message: string, action: string) {
+  // Bottom screen message
+  openSnackBar(message: string, action: string = 'Dismiss', duration: number = 2000) {
     this._snackBar.open(message, action, {
-      duration: 2000
+      duration: duration
     });
   }
 }

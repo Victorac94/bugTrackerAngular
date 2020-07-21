@@ -73,13 +73,13 @@ export class SidenavComponent implements OnInit {
     this.userInfo = {};
 
     // Show successful logout message
-    this.openSnackBar('Logged out successfully', 'Dismiss');
+    this.openSnackBar('Logged out successfully');
   }
 
-  // Angular material snackbar message
-  openSnackBar(message: string, action: string) {
+  // Bottom screen message
+  openSnackBar(message: string, action: string = 'Dismiss', duration: number = 2000) {
     this._snackBar.open(message, action, {
-      duration: 2000
+      duration: duration
     });
   }
 

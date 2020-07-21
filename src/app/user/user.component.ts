@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../user.service';
 import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-user',
@@ -14,7 +16,8 @@ export class UserComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private _snackBar: MatSnackBar
   ) {
     this.userData = null;
     this.loading = false;
@@ -44,10 +47,24 @@ export class UserComponent implements OnInit {
       this.loading = false;
 
     } catch (err) {
-      console.log(err);
       // Hide loading spinner
       this.loading = false;
+
+      // Show error message
+      if (err.status === 422) {
+        this.openSnackBar(err.error, undefined, 4000)
+
+        // For errors like 500 with no custom error text
+      } else {
+        this.openSnackBar(`${err.statusText} ${err.status}`, undefined, 4000);
+      }
     }
   }
 
+  // Bottom screen message
+  openSnackBar(message: string, action: string = 'Dismiss', duration: number = 2000) {
+    this._snackBar.open(message, action, {
+      duration: duration
+    });
+  }
 }

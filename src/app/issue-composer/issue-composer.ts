@@ -93,6 +93,16 @@ export class IssueComposerComponent implements OnInit {
     this.projectService.getAll()
       .then(response => {
         this.projects = response.projects;
+
+      }).catch(err => {
+        // Show error message
+        if (err.status === 422) {
+          this.openSnackBar(err.error, undefined, 4000)
+
+          // For errors like 500 with no custom error text
+        } else {
+          this.openSnackBar(`${err.statusText} ${err.status}`, undefined, 4000);
+        }
       })
   }
 
@@ -118,44 +128,53 @@ export class IssueComposerComponent implements OnInit {
       this.issueId = response.issue._id;
 
     } catch (err) {
-      console.log(err);
+      // Show error message
+      if (err.status === 422) {
+        this.openSnackBar(err.error, undefined, 4000)
+
+        // For errors like 500 with no custom error text
+      } else {
+        this.openSnackBar(`${err.statusText} ${err.status}`, undefined, 4000);
+      }
     }
   }
 
   async handleSubmitIssue(isEditMode) {
     try {
-      let response;
-
       // If we are editing an issue
       if (isEditMode) {
-        response = await this.issueService.editIssue(this.issueForm.value, this.issueId);
+        await this.issueService.editIssue(this.issueForm.value, this.issueId);
         this.router.navigate(['../'], { relativeTo: this.route });
 
         // Show success message
-        this.openSnackBar('Issue edited successfuly', 'Dismiss');
+        this.openSnackBar('Issue edited successfuly');
 
         // If we are creating a new issue
       } else {
-        response = await this.issueService.newIssue(this.issueForm.value);
+        await this.issueService.newIssue(this.issueForm.value);
         this.router.navigate(['/issues']);
 
         // Show success message
-        this.openSnackBar('Issue created successfuly', 'Dismiss');
+        this.openSnackBar('Issue created successfuly');
       }
 
-      console.log(response);
-
     } catch (err) {
-      console.log(err);
+      // Show error message
+      if (err.status === 422) {
+        this.openSnackBar(err.error, undefined, 4000)
+
+        // For errors like 500 with no custom error text
+      } else {
+        this.openSnackBar(`${err.statusText} ${err.status}`, undefined, 4000);
+      }
     }
 
   }
 
-  openSnackBar(message: string, action: string) {
-    setTimeout(() => {
-      this._snackBar.open(message, action, {
-        duration: 2000
-      })
-    }, 300);
+  // Bottom screen message
+  openSnackBar(message: string, action: string = 'Dismiss', duration: number = 2000) {
+    this._snackBar.open(message, action, {
+      duration: duration
+    });
   }
 }

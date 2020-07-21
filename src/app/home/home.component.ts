@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { IssueService } from '../issue.service';
 
 @Component({
@@ -13,7 +15,8 @@ export class HomeComponent implements OnInit {
   loading: boolean;
 
   constructor(
-    private issueService: IssueService
+    private issueService: IssueService,
+    private _snackBar: MatSnackBar
   ) {
     this.latestIssues = null;
     this.closedIssues = null;
@@ -40,9 +43,17 @@ export class HomeComponent implements OnInit {
       this.closedIssues = this.sortIssues(response.issues, 'closed');
 
     } catch (err) {
-      console.log(err);
       // Hide loading spinner
       this.loading = false;
+
+      // Show error message
+      if (err.status === 422) {
+        this.openSnackBar(err.error, undefined, 4000)
+
+        // For errors like 500 with no custom error text
+      } else {
+        this.openSnackBar(`${err.statusText} ${err.status}`, undefined, 4000);
+      }
     }
   }
 
@@ -50,5 +61,12 @@ export class HomeComponent implements OnInit {
     return issues.filter(issue => {
       return issue.state === sorting;
     }).slice(0, 5)
+  }
+
+  // Bottom screen message
+  openSnackBar(message: string, action: string = 'Dismiss', duration: number = 2000) {
+    this._snackBar.open(message, action, {
+      duration: duration
+    });
   }
 }

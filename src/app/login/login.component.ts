@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { LoginService } from '../login.service';
 
 
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
-    private router: Router
+    private router: Router,
+    private _snackBar: MatSnackBar
   ) {
     this.login = new FormGroup({
       email: new FormControl('', [
@@ -45,8 +47,24 @@ export class LoginComponent implements OnInit {
 
       this.router.navigate(['/']);
 
-    } catch (err) {
+      this.openSnackBar(`Welcome back ${response['user-info'].name}`, undefined, 3000);
 
+    } catch (err) {
+      // Show error message
+      if (err.status === 422) {
+        this.openSnackBar(err.error, undefined, 4000)
+
+        // For errors like 500 with no custom error text
+      } else {
+        this.openSnackBar(`${err.statusText} ${err.status}`, undefined, 4000);
+      }
     }
+  }
+
+  // Bottom screen message
+  openSnackBar(message: string, action: string = 'Dismiss', duration: number = 2000) {
+    this._snackBar.open(message, action, {
+      duration: duration
+    });
   }
 }

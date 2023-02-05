@@ -14,7 +14,7 @@
         </mat-form-field>
         <mat-form-field appearance="legacy">
             <mat-label>Email*</mat-label>
-            <input matInput placeholder="Email" formControlName="email">
+            <input type="email" matInput placeholder="Email" formControlName="email">
             <mat-error *ngIf="register.controls.email.errors?.required && register.controls.email.touched">Email is
                 required.
             </mat-error>

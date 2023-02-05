@@ -33,6 +33,10 @@
             margin: 0.7em 0;
             display: inline-block;
         }
+
+        a:visited {
+            color: initial;
+        }
     }
 
     .comment-text {

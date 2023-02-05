@@ -4,7 +4,7 @@
     <form class="login-form" [formGroup]="login" (ngSubmit)="handleSubmitLogin()">
         <mat-form-field appearance="legacy">
             <mat-label>Email*</mat-label>
-            <input matInput placeholder="Email" formControlName="email">
+            <input type="email" matInput placeholder="Email" formControlName="email">
             <mat-error *ngIf="login.controls.email.errors?.required && login.controls.email.touched">Email is
                 required</mat-error>
             <mat-error *ngIf="login.controls.email.errors?.pattern && login.controls.email.dirty">

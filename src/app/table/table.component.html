@@ -34,7 +34,8 @@
             </ng-container>
             <ng-container matColumnDef="summary">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Summary </th>
-                <td mat-cell *matCellDef="let issue"> {{issue.summary}} </td>
+                <td mat-cell *matCellDef="let issue" class="issue-summary" [routerLink]="['/issues', issue._id]">
+                    {{issue.summary}} </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
             <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
